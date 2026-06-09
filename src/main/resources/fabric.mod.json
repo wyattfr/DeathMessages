@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"id": "deathmessages",
+	"version": "${version}",
+	"name": "DeathMessages",
+	"description": "A client-side mod that filters and suppresses repetitive death messages in Minecraft chat.",
+	"authors": [
+		"Nightfall"
+	],
+	"contact": {
+		"sources": "https://github.com/wyattfr/DeathMessages"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/deathmessages/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"org.nightfall.deathmessages.client.DeathMessagesClient"
+		]
+	},
+	"mixins": [
+		{
+			"config": "deathmessages.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "26.1.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
