@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class DeathMessageFilter {
 	private static final Logger LOGGER = LoggerFactory.getLogger("deathmessages");
 
-	// Patterns with a captured group for the dead player's name in group 1.
+
 	private static final List<PatternEntry> PATTERNS = new ArrayList<>();
 	private static final Set<String> HOSTILE_MOBS = new HashSet<>(Arrays.asList(
 			"zombie","skeleton","creeper","spider","enderman","witch","blaze","husk","stray","phantom","drowned","slime","magma_cube","piglin","hoglin","evoker","vindicator","pillager","illusioner","shulker"
@@ -25,7 +25,6 @@ public class DeathMessageFilter {
 	private static final Map<String, Long> lastSuppressionNotice = new HashMap<>();
 
 	static {
-		// Common vanilla death message formats (English). Group 1 = dead player, group 2 = source (if any)
 		add("^(.+) was slain by (.+)$", DeathCategory.HOSTILE);
 		add("^(.+) was shot by (.+)$", DeathCategory.HOSTILE);
 		add("^(.+) was killed by (.+)$", DeathCategory.HOSTILE);

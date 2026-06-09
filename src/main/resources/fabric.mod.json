@@ -5,7 +5,7 @@
 	"name": "DeathMessages",
 	"description": "A client-side mod that filters and suppresses repetitive death messages in Minecraft chat.",
 	"authors": [
-		"Nightfall"
+		"wyattfr_"
 	],
 	"contact": {
 		"sources": "https://github.com/wyattfr/DeathMessages"
@@ -25,9 +25,9 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.19.2",
+		"fabricloader": ">=0.19.1",
 		"minecraft": "26.1.2",
-		"java": ">=25",
+		"java": "*",
 		"fabric-api": "*"
 	}
 }

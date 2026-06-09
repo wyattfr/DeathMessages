@@ -13,7 +13,7 @@ import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 public class DeathMessagesCommand {
     public static void register() {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            com.mojang.brigadier.builder.LiteralArgumentBuilder<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource> root = com.mojang.brigadier.builder.LiteralArgumentBuilder.<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource>literal("deathmessages");
+            com.mojang.brigadier.builder.LiteralArgumentBuilder<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource> root = com.mojang.brigadier.builder.LiteralArgumentBuilder.<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource>literal("deathmessages").requires(src -> true);
 
             // reload
             root.then(com.mojang.brigadier.builder.LiteralArgumentBuilder
@@ -90,7 +90,13 @@ public class DeathMessagesCommand {
 
             typeRoot.then(com.mojang.brigadier.builder.LiteralArgumentBuilder
                     .<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource>literal("mute").then(com.mojang.brigadier.builder.RequiredArgumentBuilder
-                            .<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource, String>argument("category", com.mojang.brigadier.arguments.StringArgumentType.word()).executes(ctx -> {
+                            .<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource, String>argument("category", com.mojang.brigadier.arguments.StringArgumentType.word())
+                            .suggests((ctx, builder) -> {
+                                for (org.nightfall.deathmessages.client.config.DeathCategory cat : org.nightfall.deathmessages.client.config.DeathCategory.values()) {
+                                    builder.suggest(cat.name().toLowerCase(java.util.Locale.ROOT));
+                                }
+                                return builder.buildFuture();
+                            }).executes(ctx -> {
                                 String c = com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "category");
                                 try {
                                     DeathCategory cat = DeathCategory.valueOf(c.toUpperCase(java.util.Locale.ROOT));
@@ -108,7 +114,13 @@ public class DeathMessagesCommand {
 
             typeRoot.then(com.mojang.brigadier.builder.LiteralArgumentBuilder
                     .<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource>literal("unmute").then(com.mojang.brigadier.builder.RequiredArgumentBuilder
-                            .<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource, String>argument("category", com.mojang.brigadier.arguments.StringArgumentType.word()).executes(ctx -> {
+                            .<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource, String>argument("category", com.mojang.brigadier.arguments.StringArgumentType.word())
+                            .suggests((ctx, builder) -> {
+                                for (org.nightfall.deathmessages.client.config.DeathCategory cat : org.nightfall.deathmessages.client.config.DeathCategory.values()) {
+                                    builder.suggest(cat.name().toLowerCase(java.util.Locale.ROOT));
+                                }
+                                return builder.buildFuture();
+                            }).executes(ctx -> {
                                 String c = com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "category");
                                 try {
                                     DeathCategory cat = DeathCategory.valueOf(c.toUpperCase(java.util.Locale.ROOT));

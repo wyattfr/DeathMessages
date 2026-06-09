@@ -49,6 +49,14 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
+	// Use Gradle Java toolchain to obtain a JDK capable of compiling to the project's requested
+	// release (25). This does not change the project's target Java version; it only instructs
+	// Gradle to use a matching JDK for compilation. Gradle can auto-download the toolchain when
+	// `org.gradle.java.installations.auto-download=true` is set in gradle.properties.
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
+
 	sourceCompatibility = JavaVersion.VERSION_25
 	targetCompatibility = JavaVersion.VERSION_25
 }
